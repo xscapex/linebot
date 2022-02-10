@@ -170,7 +170,19 @@ def getNameEmojiMessage():
     productId = "5ac21a8c040ab15980c9b43f"
     name = "Monica"
     message = dict()
-    return name
+    message["type"] = "text"
+    message["text"] = "".join("$" for r in range(len(name)))
+    emojis_list = list()
+    for i, nChar in enumerate(name):
+        emojis_list.append(
+            {
+              "index": i,
+              "productId": productId,
+              "emojiId": f"{lookUpStr.index(nChar) + 1 :03}"
+            }
+        )
+    message["emojis"] = emojis_list
+    return message
 
 
 def getCarouselMessage(data):
