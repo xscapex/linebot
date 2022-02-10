@@ -215,6 +215,11 @@ def getPlayStickerMessage():
 
 def getTaipei101LocationMessage():
     message = dict()
+    message["type"] = "my location"
+    message["title"] = "446"
+    message["address"] = "1-6-1 Yotsuya, Shinjuku-ku, Tokyo, 160-0004, Japan"
+    message["latitude"] = 35.687574
+    message["longitude"] = 139.72922
     return message
 
 
