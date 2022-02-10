@@ -54,10 +54,8 @@ def index():
                                            getMRTVideoMessage()]
                 elif text == "台北101圖":
                     payload["messages"] = [getTaipei101ImageMessage()]
-
                 elif text == "台北101影片":
                     payload["messages"] = [getMRTVideoMessage()]
-
                 elif text == "quoda":
                     payload["messages"] = [
                             {
@@ -174,7 +172,7 @@ def sendTextMessageToMe():
 def getNameEmojiMessage():
     lookUpStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
     productId = "5ac21a8c040ab15980c9b43f"
-    name = "Monica"
+    name = "Miles"
     message = dict()
     message["type"] = "text"
     message["text"] = "".join("$" for r in range(len(name)))
@@ -198,25 +196,25 @@ def getCarouselMessage(data):
 
 def getLocationConfirmMessage(title, latitude, longitude):
     message = {
-  "type": "template",
-  "altText": "this is a confirm template",
-  "template": {
-      "type": "confirm",
-      "text": "Are you sure?",
-      "actions": [
-          {
-            "type": "message",
-            "label": "Yes",
-            "text": "yes"
-          },
-          {
-            "type": "message",
-            "label": "No",
-            "text": "no"
-          }
-      ]
-  }
-}
+      "type": "template",
+      "altText": "this is a confirm template",
+      "template": {
+          "type": "confirm",
+          "text": "Are you sure?",
+          "actions": [
+              {
+                "type": "message",
+                "label": "Yes",
+                "text": "yes"
+              },
+              {
+                "type": "message",
+                "label": "No",
+                "text": "no"
+              }
+          ]
+      }
+    }
     return message
 
 
@@ -232,13 +230,14 @@ def getPlayStickerMessage():
     message["stickerId"] = "1988"
     return message
 
+
 def getTaipei101LocationMessage():
     message = dict()
-    message["type"] = "my location"
+    message["type"] = "location"
     message["title"] = "台北101"
-    message["address"] = "1-6-1 Yotsuya, Shinjuku-ku, Tokyo, 160-0004, Japan"
-    message["latitude"] = 35.687574
-    message["longitude"] = 139.72922
+    message["address"] = "110台北市信義區信義路五段7號"
+    message["latitude"] = 25.034056468449304
+    message["longitude"] = 121.56466736984362
     return message
 
 
@@ -275,7 +274,12 @@ def getImageMessage(originalContentUrl):
 
 
 def replyMessage(payload):
-    response = requests.post("https://api.line.me/v2/bot/message/reply", headers=HEADER, data=json.dumps(payload))
+    response = requests.post("https://api.line.me/v2/bot/message/reply",headers=HEADER,data=json.dumps(payload))
+    return 'OK'
+
+
+def pushMessage(payload):
+    response = requests.post("https://api.line.me/v2/bot/message/push",headers=HEADER,data=json.dumps(payload))
     return 'OK'
 
 
@@ -289,13 +293,6 @@ def getTodayCovid19Message():
     date = response.json()[0]["a04"]
     total_count = response.json()[0]["a05"]
     count = response.json()[0]["a06"]
-    return F"日期：{date}, 人數：{count}, 確診總人數：{total_count}"
-
-
-def getTodayCovid19Message():
-    date = ""
-    total_count = 0
-    count = 0
     return F"日期：{date}, 人數：{count}, 確診總人數：{total_count}"
 
 
